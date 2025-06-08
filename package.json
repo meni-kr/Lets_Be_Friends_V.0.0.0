@@ -1,12 +1,12 @@
 {
   "name": "lets_be_friends",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "backend/server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon backend/server.js"
   },
   "keywords": [],
-  "module": "module",
+  "type": "module",
   "author": "",
   "license": "ISC",
   "description": "",
