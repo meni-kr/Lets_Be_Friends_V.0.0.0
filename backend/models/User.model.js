@@ -27,11 +27,20 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    age: {
+    firstAge: {
         type: Number,
         require: true
     },
-    gender: {
+    secondAge: {
+        type: Number,
+        require: true
+    },
+    firstGender: {
+        type: String,
+        require: true,
+        enum: ['male', 'female']
+    },
+    secondGender: {
         type: String,
         require: true,
         enum: ['male', 'female']
