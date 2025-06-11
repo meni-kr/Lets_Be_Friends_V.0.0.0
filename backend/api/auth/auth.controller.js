@@ -1,13 +1,22 @@
+import { authService } from "./auth.service.js"
+
 export async function login(req, res) {
-    const { firstName, secondName, firstEmail, secondEmail, firstPassword, secondPassword, firstAge,secondAge, firstGender,secondGender, preference } = req.body
+    
+}
+
+export async function signup(req, res) {
+    const credentials = req.body
 
     try {
+        
+        const user = await authService.signup(credentials)
+
+        
+
 
     } catch (error) {
 
     }
 }
-
-export async function signup(req, res) { }
 
 export async function logout(req, res) { }
