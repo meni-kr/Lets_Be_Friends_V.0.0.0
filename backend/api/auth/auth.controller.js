@@ -5,12 +5,14 @@ export async function login(req, res) {
 }
 
 export async function signup(req, res) {
-    const credentials = req.body
+    const {email,password} = req.body
 
     try {
         
-        const user = await authService.signup(credentials)
+        const account = await authService.signup(email,password)
 
+        //// Implement logger here
+        // logger.info('Account signup:', account)
         
 
 
