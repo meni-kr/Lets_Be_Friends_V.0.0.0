@@ -23,7 +23,12 @@ const accountSchema = new mongoose.Schema({
 
     accounts: {
         type: [accountUserSchema],
-        validate: v => v.length === 2
+        validate: {
+            validator: function (v) {
+                return v=== null || v.length === 2 
+            }
+        },
+        default:undefined
     },
     hobbies: [String],
     description: String,

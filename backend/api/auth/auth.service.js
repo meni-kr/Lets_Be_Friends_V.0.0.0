@@ -16,12 +16,13 @@ async function signup(email,password) {
     try {
 
         if (!email || !password) {
+            
             throw 'All fields are required'
         }
 
         const accountExist = await Account.find({ email })
-
-        if (accountExist) {
+        console.log('accountExist:',accountExist )
+        if (accountExist.length) {
             throw 'User already exists'
         }
 

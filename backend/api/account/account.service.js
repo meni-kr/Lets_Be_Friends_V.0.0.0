@@ -14,13 +14,13 @@ async function addAccount(email, hashedPassword) {
 
         const newAccount = new Account({
             email,
-            hashedPassword,
+            password: hashedPassword,
             verificationToken,
             verificationTokenExpiresAt: Date.now() + 24 * 60 * 60 * 1000, // 24 hours
         })
-
+        
         await newAccount.save()
-
+        
         return newAccount
 
     } catch (error) {
