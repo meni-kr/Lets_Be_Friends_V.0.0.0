@@ -14,6 +14,7 @@ export async function signup(req, res) {
         //// Implement logger here
         // logger.info('Account signup:', account)
         
+        generateTokenAndSetCookie(res, account._id)
 
 
     } catch (error) {
