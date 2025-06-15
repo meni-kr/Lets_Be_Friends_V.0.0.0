@@ -21,7 +21,7 @@ async function signup(email,password) {
         }
 
         const accountExist = await Account.find({ email })
-        console.log('accountExist:',accountExist )
+
         if (accountExist.length) {
             throw 'User already exists'
         }
