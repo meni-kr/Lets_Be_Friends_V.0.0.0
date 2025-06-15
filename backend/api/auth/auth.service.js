@@ -2,12 +2,14 @@ import { Account } from "../../models/Account.model.js"
 import bcrypt from "bcryptjs"
 import { accountService } from "../account/account.service.js"
 import jwt from "jsonwebtoken"
+import { verificationEmail } from "../../mailtrap/emails.js"
 
 
 
 export const authService = {
     signup,
     generateTokenAndSetCookie,
+    sendVerificationEmail,
 }
 
 async function signup(email,password) {
@@ -49,4 +51,13 @@ function generateTokenAndSetCookie(res,accountID){
     })
 
     return token
+}
+
+async function sendVerificationEmail(email,token){
+    try {
+        await verificationEmail(email,token)
+        
+    } catch (error) {
+        throw error
+    }
 }

@@ -16,6 +16,8 @@ export async function signup(req, res) {
 
         authService.generateTokenAndSetCookie(res, account._id)
 
+        authService.sendVerificationEmail(account.email,account.verificationToken)
+
         res.status(201).json({
             success: true,
             message: "Account created successfully",
