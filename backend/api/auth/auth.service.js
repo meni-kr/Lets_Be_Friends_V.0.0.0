@@ -10,6 +10,7 @@ export const authService = {
     signup,
     generateTokenAndSetCookie,
     sendVerificationEmail,
+    findAccountForVerification
 }
 
 async function signup(email,password) {
@@ -57,6 +58,26 @@ async function sendVerificationEmail(email,token){
     try {
         await verificationEmail(email,token)
         
+    } catch (error) {
+        throw error
+    }
+}
+
+async function findAccountForVerification(code){
+
+    try {
+        
+       const account = await Account.findOne({
+            verificationToken: code,
+            verificationTokenExpires: { $gt: new Date() }
+        })
+
+        if(!account){
+            throw 'Invalid or expired verification code'
+        }
+
+        return account
+
     } catch (error) {
         throw error
     }
