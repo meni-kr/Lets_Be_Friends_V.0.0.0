@@ -16,7 +16,7 @@ export async function signup(req, res) {
 
         authService.generateTokenAndSetCookie(res, account._id)
 
-        authService.sendVerificationEmail(account.email, account.verificationToken)
+        await authService.sendVerificationEmail(account.email, account.verificationToken)
 
         res.status(201).json({
             success: true,
@@ -56,14 +56,23 @@ export async function verifyEmail(req, res) {
         //// Implement logger here
         // logger.info('Account verification:', account)
 
-        
+        await authService.sendWelcomeEmail(account.email)
+
+        res.status(200).json({
+            success: true,
+            message: "Email verified successfully",
+            account: {
+                ...account._doc,
+                password: undefined
+            }
+        })
 
     } catch (error) {
 
         //// Implement logger here
         // logger.error('Failed to verify email ' + error)
 
-        res.status(400).json({
+        res.status(500).json({
             success: false,
             message: error
         })

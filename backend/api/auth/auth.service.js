@@ -2,7 +2,7 @@ import { Account } from "../../models/Account.model.js"
 import bcrypt from "bcryptjs"
 import { accountService } from "../account/account.service.js"
 import jwt from "jsonwebtoken"
-import { verificationEmail } from "../../mailtrap/emails.js"
+import { verificationEmail, welcomeEmail } from "../../mailtrap/emails.js"
 
 
 
@@ -10,7 +10,8 @@ export const authService = {
     signup,
     generateTokenAndSetCookie,
     sendVerificationEmail,
-    findAccountForVerification
+    findAccountForVerification,
+    sendWelcomeEmail,
 }
 
 async function signup(email,password) {
@@ -57,7 +58,6 @@ function generateTokenAndSetCookie(res,accountID){
 async function sendVerificationEmail(email,token){
     try {
         await verificationEmail(email,token)
-        
     } catch (error) {
         throw error
     }
@@ -66,11 +66,12 @@ async function sendVerificationEmail(email,token){
 async function findAccountForVerification(code){
 
     try {
-        
+        console.log('code:', code)
        const account = await Account.findOne({
             verificationToken: code,
-            verificationTokenExpires: { $gt: new Date() }
+            verificationTokenExpiresAt: { $gt: new Date() }
         })
+        console.log('account:', account)
 
         if(!account){
             throw 'Invalid or expired verification code'
@@ -78,6 +79,15 @@ async function findAccountForVerification(code){
 
         return account
 
+    } catch (error) {
+        throw error
+    }
+}
+
+async function sendWelcomeEmail(email){
+
+    try {
+        await welcomeEmail(email)
     } catch (error) {
         throw error
     }
