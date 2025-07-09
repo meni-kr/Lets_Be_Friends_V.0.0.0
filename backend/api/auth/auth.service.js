@@ -66,12 +66,11 @@ async function sendVerificationEmail(email,token){
 async function findAccountForVerification(code){
 
     try {
-        console.log('code:', code)
+        
        const account = await Account.findOne({
             verificationToken: code,
             verificationTokenExpiresAt: { $gt: new Date() }
         })
-        console.log('account:', account)
 
         if(!account){
             throw 'Invalid or expired verification code'
